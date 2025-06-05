@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exosphere - Coming Soon</title>
+    <title>Exosphere</title>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
     <style>
         body {
@@ -16,16 +16,57 @@
             background: #000;
         }
         .logo {
-            color: #fff;
             font-family: 'Libre Barcode 128 Text', cursive;
             font-size: 7vw;
             text-align: center;
             letter-spacing: 0.1em;
             user-select: none;
         }
+        .exo {
+            display: inline;
+            transition: color 0.3s ease-in-out;
+        }
+        .schar {
+            display: inline;
+            color: #ffffff;
+        }
+        .sphere {
+            display: inline;
+            /* Gradient adjusted: minimal white until 5%, then vivid color */
+            background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #00ff00 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: hueShift 20s linear infinite;
+        }
+        @keyframes hueShift {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <div class="logo">EXOSPHERE</div>
+    <div class="logo">
+        <span class="exo" id="exo">EXO</span><span class="schar"> S</span><span class="sphere">P H E R E</span>
+    </div>
+
+    <script>
+        const exoElement = document.getElementById("exo");
+
+        function getVibrantDarkColor() {
+            const hue = Math.floor(Math.random() * 360);
+            const saturation = Math.floor(Math.random() * 30) + 70;
+            const lightness = Math.floor(Math.random() * 20) + 30;
+            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        }
+
+        // Initial color for EXO
+        exoElement.style.color = getVibrantDarkColor();
+
+        // Change EXO color every 5 seconds
+        setInterval(() => {
+            exoElement.style.color = getVibrantDarkColor();
+        }, 5000);
+    </script>
 </body>
-</html> 
+</html>
