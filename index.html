@@ -20,34 +20,30 @@
     }
 
     .logo {
-      font-family: 'Libre Barcode 128 Text', cursive;
-      font-size: 7vw;
-      text-align: center;
+      display: flex;
+      align-items: flex-end;
+      gap: 0.2em;
       user-select: none;
-      letter-spacing: normal; /* reset to default */
-      line-height: 0.85; /* tightens vertical spacing */
-    }
-
-    .exo, .schar, .sphere {
-      display: inline-block;
-      white-space: nowrap;
     }
 
     .exo {
+      font-family: 'Libre Barcode 128 Text', cursive;
+      font-size: 5.5vw;
+      line-height: 1;
       color: hsl(140, 70%, 40%);
       transition: color 0.3s ease-in-out;
     }
 
-    .schar {
-      color: #ffffff;
-    }
-
     .sphere {
+      font-family: Arial, sans-serif;
+      font-size: 2.3vw;
+      line-height: 1;
       background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #ff0080 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       animation: hueShift 20s linear infinite;
+      transform: translateY(-0.1vw);
     }
 
     @keyframes hueShift {
@@ -58,7 +54,8 @@
 </head>
 <body>
   <div class="logo">
-    <span class="exo" id="exo">EXO</span><span class="schar"> </span><span class="sphere">SPHERE</span>
+    <span class="exo" id="exo">EXO</span>
+    <span class="sphere">SPHERE</span>
   </div>
 
   <script>
