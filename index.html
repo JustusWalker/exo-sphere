@@ -24,13 +24,12 @@
             background: #000;
         }
 
-        /* Use the barcode font and force zero extra spacing */
         .logo {
             font-family: 'Libre Barcode 128 Text', monospace;
             font-size: 7vw;
             text-align: center;
-            letter-spacing: 0;               /* no extra gaps */
-            line-height: 1;                  /* avoid any vertical scaling */
+            letter-spacing: 0;
+            line-height: 1;
             user-select: none;
 
             /* Rendering hints for consistency */
@@ -45,7 +44,7 @@
 
         .sphere {
             display: inline;
-            /* Start with white→green gradient, then hue-rotate */
+            /* Gradient from white to green, then animated hue shift */
             background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #00ff00 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -53,4 +52,35 @@
             animation: hueShift 20s linear infinite;
         }
 
-        @keyframes hueShi
+        @keyframes hueShift {
+            from { filter: hue-rotate(0deg); }
+            to   { filter: hue-rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <!-- No space between EXO and SPHERE -->
+        <span class="exo" id="exo">EXO</span><span class="sphere"> S P H E R E</span>
+    </div>
+
+    <script>
+        const exoElement = document.getElementById("exo");
+
+        function getVibrantDarkColor() {
+            const hue = Math.floor(Math.random() * 360);
+            const saturation = Math.floor(Math.random() * 30) + 70;
+            const lightness = Math.floor(Math.random() * 20) + 30;
+            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        }
+
+        // Initial color for EXO
+        exoElement.style.color = getVibrantDarkColor();
+
+        // Change EXO color every 5 seconds
+        setInterval(() => {
+            exoElement.style.color = getVibrantDarkColor();
+        }, 5000);
+    </script>
+</body>
+</html>
