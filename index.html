@@ -29,11 +29,11 @@
             font-family: 'Libre Barcode 128 Text', monospace;
             font-size: 7vw;
             text-align: center;
-            letter-spacing: 0;               /* <-- force 0 spacing */
-            line-height: 1;                  /* <-- avoid any line-height drift */
+            letter-spacing: 0;               /* no extra gaps */
+            line-height: 1;                  /* avoid any vertical scaling */
             user-select: none;
 
-            /* Rendering hints */
+            /* Rendering hints for consistency */
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
         }
@@ -41,11 +41,6 @@
         .exo {
             display: inline;
             transition: color 0.3s ease-in-out;
-        }
-
-        .schar {
-            display: inline;
-            color: #ffffff;
         }
 
         .sphere {
@@ -58,36 +53,4 @@
             animation: hueShift 20s linear infinite;
         }
 
-        @keyframes hueShift {
-            from { filter: hue-rotate(0deg); }
-            to   { filter: hue-rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-    <div class="logo">
-        <span class="exo" id="exo">EXO</span>
-        <span class="schar"> </span>
-        <span class="sphere">S P H E R E</span>
-    </div>
-
-    <script>
-        const exoElement = document.getElementById("exo");
-
-        function getVibrantDarkColor() {
-            const hue = Math.floor(Math.random() * 360);
-            const saturation = Math.floor(Math.random() * 30) + 70;
-            const lightness = Math.floor(Math.random() * 20) + 30;
-            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-        }
-
-        // Initial color for EXO
-        exoElement.style.color = getVibrantDarkColor();
-
-        // Change EXO color every 5 seconds
-        setInterval(() => {
-            exoElement.style.color = getVibrantDarkColor();
-        }, 5000);
-    </script>
-</body>
-</html>
+        @keyframes hueShi
