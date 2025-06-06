@@ -1,76 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exosphere</title>
-
-    <!-- Preload the barcode font and a sleek futuristic font (Exo 2) for date -->
-    <link 
-      rel="preload" 
-      href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" 
-      as="style" 
-      onload="this.rel='stylesheet'"
-    />
-    <link 
-      rel="preload" 
-      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400&display=swap" 
-      as="style" 
-      onload="this.rel='stylesheet'"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* center vertically */
-            align-items: center;     /* center horizontally */
+            justify-content: center;
+            align-items: center;
             background: #000;
         }
-
         .logo {
-            font-family: 'Libre Barcode 128 Text', monospace;
+            font-family: 'Libre Barcode 128 Text', cursive;
             font-size: 7vw;
             text-align: center;
-            letter-spacing: 0;
-            line-height: 1;
+            letter-spacing: 0.1em;
             user-select: none;
-
-            /* Rendering hints */
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
-
-        /* Make each span an inline-block to isolate backgrounds */
         .exo {
-            display: inline-block;
+            display: inline;
             transition: color 0.3s ease-in-out;
         }
-
         .sphere {
-            display: inline-block;
+            display: inline;
             background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #00ff00 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: hueShift 20s linear infinite;
         }
-
-        @keyframes hueShift {
-            from { filter: hue-rotate(0deg); }
-            to   { filter: hue-rotate(360deg); }
-        }
-
         .date {
             font-family: 'Exo 2', sans-serif;
             font-weight: 400;
             font-size: 2vw;
-            color: #E6E6E6; /* very light gray, ~90% brightness */
-            letter-spacing: 0.15em; /* moderate kerning */
+            color: #E6E6E6;
+            letter-spacing: 0.15em;
             margin-top: 1.5rem;
+            text-align: center;
+            user-select: none;
+        }
+        @keyframes hueShift {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(360deg); }
         }
     </style>
 </head>
@@ -82,7 +60,6 @@
 
     <script>
         const exoElement = document.getElementById("exo");
-        const sphereElement = document.getElementById("sphere");
 
         function getVibrantDarkColor() {
             const hue = Math.floor(Math.random() * 360);
