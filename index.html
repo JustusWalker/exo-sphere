@@ -23,23 +23,27 @@
       font-family: 'Libre Barcode 128 Text', cursive;
       font-size: 7vw;
       text-align: center;
-      letter-spacing: 0.1em;
       user-select: none;
+      letter-spacing: normal; /* reset to default */
+      line-height: 0.85; /* tightens vertical spacing */
+    }
+
+    .exo, .schar, .sphere {
+      display: inline-block;
+      white-space: nowrap;
     }
 
     .exo {
-      display: inline;
+      color: hsl(140, 70%, 40%);
       transition: color 0.3s ease-in-out;
     }
 
     .schar {
-      display: inline;
       color: #ffffff;
     }
 
     .sphere {
-      display: inline;
-      background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #00ff00 100%);
+      background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #ff0080 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -54,7 +58,7 @@
 </head>
 <body>
   <div class="logo">
-    <span class="exo" id="exo">EXO</span><span class="schar"> </span><span class="sphere"> S P H E R E</span>
+    <span class="exo" id="exo">EXO</span><span class="schar"> </span><span class="sphere">SPHERE</span>
   </div>
 
   <script>
