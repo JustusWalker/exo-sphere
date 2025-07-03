@@ -64,8 +64,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 10vh 0 30vh 0;
-            overflow-x: hidden;
+            padding-top: 10vh;
+            overflow-y: auto;
+        }
+
+        .page2-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            min-height: 200vh;
+            padding-bottom: 100vh;
         }
 
         .logo {
@@ -159,7 +169,7 @@
             box-sizing: border-box;
         }
         .ticket-button {
-            margin-bottom: 6vh;
+            margin-bottom: 25vh;
             padding: 0.8em 2em;
             font-family: 'Inconsolata', 'Courier New', monospace;
             font-size: 1.2vw;
@@ -252,14 +262,8 @@
                 margin: 0 auto;
                 margin-bottom: 6vh;
             }
-            #page2 {
-                padding: 10vh 0 15vh 0;
-            }
-            .logo {
-                font-size: 8vw;
-                padding: 0 10px;
-                min-height: 1.2em;
-                transform: translateY(0.12em);
+            .ticket-button {
+                margin-bottom: 17.5vh;
             }
         }
         @media (max-width: 480px) {
@@ -280,11 +284,8 @@
             .event-poster {
                 width: 90%;
             }
-            .logo {
-                font-size: 9vw;
-                padding: 0 5px;
-                min-height: 1.2em;
-                transform: translateY(0.15em);
+            .ticket-button {
+                margin-bottom: 12.5vh;
             }
         }
         @keyframes hueShift {
