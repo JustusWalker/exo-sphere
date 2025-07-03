@@ -126,7 +126,7 @@
             font-weight: 100;
             font-style: italic;
             font-size: 3.5vw;
-            margin-bottom: 4vh;
+            margin-bottom: 2vh;
             background: linear-gradient(90deg, 
                 #00ffff 0%, 
                 #0ff8f8 20%,
@@ -140,6 +140,19 @@
             letter-spacing: 0.4em;
             text-transform: uppercase;
             opacity: 0.9;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .subtitle {
+            font-family: 'Inconsolata', monospace;
+            font-weight: 300;
+            font-size: 1.8vw;
+            margin-bottom: 4vh;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
             text-align: center;
             width: 100%;
             padding: 0 20px;
@@ -211,12 +224,17 @@
             max-width: 595px;
             height: auto;
             opacity: 0.95;
-            margin-bottom: 25vh;
+            margin-bottom: 6vh;
         }
         @media (max-width: 768px) {
             .event-title {
                 font-size: 5vw;
                 letter-spacing: 0.3em;
+                padding: 0 15px;
+            }
+            .subtitle {
+                font-size: 3vw;
+                letter-spacing: 0.4em;
                 padding: 0 15px;
             }
             .ticket-button {
@@ -232,7 +250,7 @@
             .event-poster {
                 width: 85%;
                 margin: 0 auto;
-                margin-bottom: 10vh;
+                margin-bottom: 6vh;
             }
             #page2 {
                 padding: 10vh 0 15vh 0;
@@ -248,6 +266,11 @@
             .event-title {
                 font-size: 6vw;
                 letter-spacing: 0.2em;
+                padding: 0 10px;
+            }
+            .subtitle {
+                font-size: 3.5vw;
+                letter-spacing: 0.3em;
                 padding: 0 10px;
             }
             .ticket-button {
@@ -279,9 +302,10 @@
     </section>
     
     <section id="page2">
-        <h1 class="event-title">EXOSPHERE 001</h1>
-        <a href="https://www.bouncelife.com/events/6853b3b0647ea64a95ee46be" target="_blank" class="ticket-button">Get Tickets</a>
+        <h1 class="event-title">EXOSPHERE 001:</h1>
+        <div class="subtitle">Future Sounds</div>
         <img class="event-poster" src="EXO11.png" alt="Exosphere Event Poster">
+        <a href="https://www.bouncelife.com/events/6853b3b0647ea64a95ee46be" target="_blank" class="ticket-button">Get Tickets</a>
     </section>
 
     <script>
