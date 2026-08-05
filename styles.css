@@ -1,0 +1,482 @@
+/* ===========================================================================
+   Exosphere
+
+   The button palette below is not authored here — app.js writes --cta-* from
+   events.json, which the build pipeline fills in from the current poster. The
+   values in :root are the fallback used before data lands (and if it never
+   does). Everything that paints the CTA reads those variables, so the primary
+   button and the sticky bar can never drift apart.
+   =========================================================================== */
+
+:root {
+    --bg: #000;
+    --fg: #e6e6e6;
+    --fg-dim: rgba(255, 255, 255, 0.62);
+
+    /* Poster-derived, overwritten at runtime. */
+    --cta-fill: #00f361;
+    --cta-fill-hover: #00f361;
+    --cta-label: #0a0a0a;
+    --cta-accent: #00e2d2;
+    --cta-ring: #02e2d2;
+    --cta-ring-width: 0px; /* set to 2px only when the solver asks for a ring */
+
+    --rhythm: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+    height: 100%;
+    background: var(--bg);
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------------------------------------------- hero --- */
+
+#page1 {
+    background: url('background1.png') center center / cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+}
+
+.logo {
+    font-family: 'Libre Barcode 128 Text', monospace;
+    font-size: clamp(3rem, 7vw, 9rem);
+    text-align: center;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    width: 100%;
+    padding: 0 20px;
+    min-height: 1.2em;
+    line-height: 1;
+    transform: translateY(0.1em);
+}
+
+.exo {
+    display: inline-block;
+    letter-spacing: 0;
+    transition: color 0.6s ease-in-out;
+    font-kerning: none;
+    font-feature-settings: "kern" 0;
+}
+
+.sphere {
+    display: inline-block;
+    background: linear-gradient(90deg, #fff 0%, #fff 5%, #ff69b4 50%, #8a2be2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: hueShift 20s linear infinite;
+    letter-spacing: 0;
+    font-kerning: none;
+    font-feature-settings: "kern" 0;
+}
+
+@keyframes hueShift {
+    from { filter: hue-rotate(0deg); }
+    to   { filter: hue-rotate(360deg); }
+}
+
+.date {
+    font-family: 'Inconsolata', monospace;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 2vw, 1.6rem);
+    color: var(--fg);
+    letter-spacing: 0.15em;
+    text-align: center;
+    user-select: none;
+    position: absolute;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* The hero used to give no hint that a second screen existed. */
+.scroll-cue {
+    position: absolute;
+    bottom: 3vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+    text-decoration: none;
+    color: var(--fg-dim);
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    transition: color 140ms ease;
+}
+.scroll-cue:hover { color: var(--fg); }
+.scroll-cue:focus-visible {
+    outline: 2px solid var(--cta-ring);
+    outline-offset: 6px;
+    border-radius: 4px;
+}
+.scroll-cue__arrow {
+    width: 1px;
+    height: 2.5rem;
+    background: linear-gradient(to bottom, transparent, currentColor);
+    animation: cueDrift 2.4s ease-in-out infinite;
+}
+@keyframes cueDrift {
+    0%, 100% { transform: translateY(0);     opacity: 0.5; }
+    50%      { transform: translateY(0.4rem); opacity: 1; }
+}
+
+/* ----------------------------------------------------------- spotlight --- */
+
+.spotlight {
+    background: var(--bg);
+    width: 100%;
+    padding: clamp(3rem, 10vh, 8rem) clamp(1rem, 5vw, 4rem);
+}
+
+/* Two columns on wide screens: the poster no longer pushes the CTA off-screen.
+   This is the single biggest funnel change — previously the button sat below a
+   full-width poster inside a 100vh section, i.e. a second scroll past the fold. */
+.spotlight__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+}
+
+.event-poster {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.spotlight__body { min-width: 0; }
+
+.spotlight__eyebrow {
+    margin: 0 0 1.2em;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--cta-accent);
+}
+
+.event-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    font-size: clamp(1.9rem, 4vw, 3.4rem);
+    margin: 0 0 0.25em;
+    line-height: 1.05;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.subtitle {
+    font-family: 'Inconsolata', monospace;
+    font-weight: 300;
+    font-size: clamp(0.85rem, 1.6vw, 1.15rem);
+    margin: 0 0 var(--rhythm);
+    color: var(--fg-dim);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+}
+
+.spotlight__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    margin: 0 0 var(--rhythm);
+    font-family: 'Inconsolata', monospace;
+}
+.spotlight__meta div { min-width: 0; }
+.spotlight__meta dt {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 0.5em;
+}
+.spotlight__meta dd {
+    margin: 0;
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    letter-spacing: 0.1em;
+    color: #fff;
+}
+
+.ticket-note {
+    margin: 1em 0 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+}
+.ticket-note:empty { display: none; }
+
+/* ================================================================ CTA ===
+   Deliberately plain. The old button carried a cyan-to-green gradient (so
+   contrast varied across the label), a white text-stroke plus a four-way white
+   text-shadow on black text (which lightened the glyph edges and *reduced*
+   contrast while imitating font weight), a skew that dragged the text with it,
+   and a ::before overlay on z-index:-1 that rendered behind the section and was
+   therefore never visible. All of that is gone. Flat fill, real weight, one
+   colour, measured contrast.
+   ======================================================================= */
+
+.ticket-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+
+    padding: 1.05em 2.6em;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+
+    font-family: 'Inconsolata', 'Courier New', monospace;
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+
+    background-color: var(--cta-fill);
+    color: var(--cta-label);
+
+    /* Only raised when the solver could not win object contrast on hue alone. */
+    box-shadow: 0 0 0 var(--cta-ring-width) var(--cta-ring);
+
+    transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.ticket-button:hover {
+    background-color: var(--cta-fill-hover);
+    transform: translateY(-1px);
+}
+
+.ticket-button:active { transform: translateY(0); }
+
+/* Previously absent entirely — keyboard users got no indication at all. */
+.ticket-button:focus-visible {
+    outline: 3px solid var(--cta-ring);
+    outline-offset: 3px;
+}
+
+.ticket-button--compact {
+    padding: 0.8em 1.7em;
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    letter-spacing: 0.2em;
+}
+
+.ticket-button[aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------- sticky CTA --- */
+
+.sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background: rgba(8, 8, 8, 0.92);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(110%);
+    transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+
+.sticky-cta__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.8rem clamp(1rem, 5vw, 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.sticky-cta__text {
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ archive --- */
+
+.archive {
+    padding: clamp(3rem, 9vh, 7rem) 0 clamp(5rem, 12vh, 9rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.archive[hidden] { display: none; }
+
+.archive__header {
+    max-width: 1180px;
+    margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
+    padding: 0 clamp(1rem, 5vw, 4rem);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.archive__title {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    font-weight: 400;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+}
+
+.archive__controls { display: flex; gap: 0.5rem; }
+
+.rail-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: var(--fg);
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: border-color 120ms ease, color 120ms ease;
+}
+.rail-btn:hover { border-color: var(--cta-accent); color: var(--cta-accent); }
+.rail-btn:focus-visible { outline: 2px solid var(--cta-ring); outline-offset: 2px; }
+.rail-btn[disabled] { opacity: 0.3; cursor: default; }
+
+.rail {
+    list-style: none;
+    margin: 0;
+    padding: 0 clamp(1rem, 5vw, 4rem);
+    display: flex;
+    gap: clamp(1rem, 2vw, 1.75rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* Without this the snapport ignores the padding above, so the rail scrolls
+       itself by exactly padding-left on load and clips the first poster. */
+    scroll-padding-inline: clamp(1rem, 5vw, 4rem);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.rail:focus-visible { outline: 2px solid var(--cta-ring); outline-offset: 4px; }
+.rail::-webkit-scrollbar { height: 6px; }
+.rail::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); }
+
+.rail__item {
+    flex: 0 0 auto;
+    width: clamp(210px, 24vw, 300px);
+    scroll-snap-align: start;
+}
+
+/* Real anchors, so these are crawlable and middle-clickable. */
+.rail__link {
+    display: block;
+    text-decoration: none;
+    color: var(--fg);
+    transition: transform 140ms ease;
+}
+.rail__link:hover { transform: translateY(-3px); }
+.rail__link:focus-visible { outline: 2px solid var(--cta-ring); outline-offset: 4px; }
+
+.rail__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    filter: grayscale(0.55);
+    transition: filter 200ms ease;
+}
+.rail__link:hover .rail__img { filter: grayscale(0); }
+
+.rail__name {
+    margin: 0.9em 0 0.25em;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rail__date {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.42);
+}
+
+/* ---------------------------------------------------------- responsive --- */
+
+@media (max-width: 860px) {
+    .spotlight__inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: clamp(1.5rem, 6vw, 2.5rem);
+    }
+    /* Poster first, then the pitch, then the button — but the whole block is
+       now short enough that the CTA is reachable in one scroll. */
+    .spotlight__media { order: 1; }
+    .spotlight__body  { order: 2; }
+    .event-poster { max-width: 480px; margin: 0 auto; }
+    .ticket-button { width: 100%; }
+    .date { bottom: 18vh; }
+}
+
+@media (max-width: 480px) {
+    .subtitle { letter-spacing: 0.3em; }
+    .event-title { letter-spacing: 0.12em; }
+    .sticky-cta__text { display: none; }
+    .sticky-cta__inner { justify-content: stretch; }
+    .ticket-button--compact { width: 100%; }
+}
+
+/* ------------------------------------------------------ reduced motion --- */
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .ticket-button:hover, .rail__link:hover { transform: none; }
+}

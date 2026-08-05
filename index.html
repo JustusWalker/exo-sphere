@@ -5,305 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exosphere</title>
-    <!-- Preconnect to improve font loading across browsers -->
+    <meta name="description" content="Exosphere — house, techno, UKG, baile bass and jersey club in Toronto.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@1,100&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400&display=swap" rel="stylesheet">
-    <style>
-        @font-face {
-            font-family: 'Necto Mono';
-            src: url('https://cdn.jsdelivr.net/gh/admhaidiw/nectomonoweb/fonts/NectoMono-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&family=Barlow:ital,wght@1,100&family=Inconsolata:wght@200;300;400;600;700&display=swap" rel="stylesheet">
 
-        html {
-            height: 100%;
-            background: #000;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: #000;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        #page1 {
-            background: url('background1.png') center center / cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            width: 100%;
-            height: 100vh;
-        }
-
-        #page2 {
-            background: #000;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 10vh;
-        }
-
-        .logo {
-            font-family: 'Libre Barcode 128 Text', monospace;
-            font-size: 7vw;
-            text-align: center;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            min-height: 1.2em;
-            line-height: 1;
-            transform: translateY(0.1em);
-        }
-        .exo {
-            display: inline-block;
-            letter-spacing: 0;
-            transition: color 0.3s ease-in-out;
-            font-kerning: none;
-            font-feature-settings: "kern" 0;
-            -webkit-font-feature-settings: "kern" 0;
-            -moz-font-feature-settings: "kern" 0;
-            -ms-font-feature-settings: "kern" 0;
-        }
-        .sphere {
-            display: inline-block;
-            background: linear-gradient(90deg, #ffffff 0%, #ffffff 5%, #FF69B4 50%, #8A2BE2 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: hueShift 20s linear infinite;
-            letter-spacing: 0;
-            font-kerning: none;
-            font-feature-settings: "kern" 0;
-            -webkit-font-feature-settings: "kern" 0;
-            -moz-font-feature-settings: "kern" 0;
-            -ms-font-feature-settings: "kern" 0;
-        }
-        .date {
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 400;
-            font-size: 2vw;
-            color: #E6E6E6;
-            letter-spacing: 0.15em;
-            text-align: center;
-            user-select: none;
-            position: absolute;
-            bottom: 15vh;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .event-title {
-            font-family: 'Barlow', sans-serif;
-            font-weight: 100;
-            font-style: italic;
-            font-size: 3.5vw;
-            margin-bottom: 2vh;
-            background: linear-gradient(90deg, 
-                #00ffff 0%, 
-                #0ff8f8 20%,
-                #00ff9d 40%,
-                #00ff62 60%,
-                #00ff62 100%
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            opacity: 0.9;
-            text-align: center;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        .subtitle {
-            font-family: 'Inconsolata', monospace;
-            font-weight: 300;
-            font-size: 1.8vw;
-            margin-bottom: 4vh;
-            color: rgba(255, 255, 255, 0.8);
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            text-align: center;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        .ticket-button {
-            margin-bottom: 10vh;
-            padding: 0.8em 2em;
-            font-family: 'Inconsolata', 'Courier New', monospace;
-            font-size: 1.2vw;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: #000;
-            background: linear-gradient(90deg, 
-                #00ffff 0%, 
-                #0ff8f8 20%,
-                #00ff9d 40%,
-                #00ff62 60%,
-                #00ff62 100%
-            );
-            border: none;
-            cursor: pointer;
-            position: relative;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            transform: skew(-5deg);
-            display: inline-block;
-            font-weight: 400;
-            -webkit-text-stroke: 0.2px rgba(255, 255, 255, 0.8);
-            text-shadow: 
-                -0.2px -0.2px 0 rgba(255, 255, 255, 0.8),
-                0.2px -0.2px 0 rgba(255, 255, 255, 0.8),
-                -0.2px 0.2px 0 rgba(255, 255, 255, 0.8),
-                0.2px 0.2px 0 rgba(255, 255, 255, 0.8);
-        }
-        .ticket-button:hover {
-            transform: skew(-5deg) translateY(-2px);
-            filter: brightness(1.2) contrast(1.1);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.4),
-                0 0 40px rgba(0, 255, 98, 0.2);
-            -webkit-text-stroke: 0.3px rgba(255, 255, 255, 0.9);
-            text-shadow: 
-                -0.3px -0.3px 0 rgba(255, 255, 255, 0.9),
-                0.3px -0.3px 0 rgba(255, 255, 255, 0.9),
-                -0.3px 0.3px 0 rgba(255, 255, 255, 0.9),
-                0.3px 0.3px 0 rgba(255, 255, 255, 0.9);
-        }
-        .ticket-button::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
-            background: linear-gradient(90deg, 
-                rgba(0, 255, 255, 0.2) 0%,
-                rgba(0, 255, 98, 0.2) 100%
-            );
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .ticket-button:hover::before {
-            opacity: 1;
-        }
-        .event-poster {
-            width: 55%;
-            max-width: 595px;
-            height: auto;
-            opacity: 0.95;
-            margin-bottom: 6vh;
-        }
-        @media (max-width: 768px) {
-            .event-title {
-                font-size: 5vw;
-                letter-spacing: 0.3em;
-                padding: 0 15px;
-            }
-            .subtitle {
-                font-size: 3vw;
-                letter-spacing: 0.4em;
-                padding: 0 15px;
-            }
-            .ticket-button {
-                font-size: 3vw;
-                padding: 0.6em 1.5em;
-                -webkit-text-stroke: 0.3px rgba(255, 255, 255, 0.8);
-                text-shadow: 
-                    -0.3px -0.3px 0 rgba(255, 255, 255, 0.8),
-                    0.3px -0.3px 0 rgba(255, 255, 255, 0.8),
-                    -0.3px 0.3px 0 rgba(255, 255, 255, 0.8),
-                    0.3px 0.3px 0 rgba(255, 255, 255, 0.8);
-            }
-            .event-poster {
-                width: 85%;
-                margin: 0 auto;
-                margin-bottom: 6vh;
-            }
-            .ticket-button {
-                margin-bottom: 8vh;
-            }
-        }
-        @media (max-width: 480px) {
-            .event-title {
-                font-size: 6vw;
-                letter-spacing: 0.2em;
-                padding: 0 10px;
-            }
-            .subtitle {
-                font-size: 3.5vw;
-                letter-spacing: 0.3em;
-                padding: 0 10px;
-            }
-            .ticket-button {
-                font-size: 4vw;
-                padding: 0.5em 1.2em;
-            }
-            .event-poster {
-                width: 90%;
-            }
-            .ticket-button {
-                margin-bottom: 6vh;
-            }
-        }
-        @keyframes hueShift {
-            from { filter: hue-rotate(0deg); }
-            to { filter: hue-rotate(360deg); }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- ================= HERO ================= -->
     <section id="page1">
         <div class="logo" id="logo">
             <span class="exo" id="exo">EXO </span><span class="sphere">S P H E R E</span>
         </div>
-        <div class="date" id="date">7 . 18 . 25</div>
-    </section>
-    
-    <section id="page2">
-        <h1 class="event-title">EXOSPHERE 001:</h1>
-        <div class="subtitle">Future Sounds</div>
-        <img class="event-poster" src="EXO11.png" alt="Exosphere Event Poster">
-        <a href="https://www.bouncelife.com/events/6853b3b0647ea64a95ee46be" target="_blank" class="ticket-button">Get Tickets</a>
+        <div class="date" id="hero-date">7 . 18 . 25</div>
+
+        <a class="scroll-cue" href="#spotlight" aria-label="Scroll to the next event">
+            <span class="scroll-cue__label" id="scroll-cue-label">Next Event</span>
+            <span class="scroll-cue__arrow" aria-hidden="true"></span>
+        </a>
     </section>
 
-    <script>
-        const exoElement = document.getElementById("exo");
+    <!-- ================= SPOTLIGHT =================
+         The markup below is a real, working fallback. If events.json fails to
+         load the page still renders a complete spotlight rather than an empty
+         hero; app.js replaces these values when data arrives. -->
+    <section id="spotlight" class="spotlight">
+        <div class="spotlight__inner">
+            <div class="spotlight__media">
+                <img class="event-poster" id="spotlight-poster"
+                     src="EXO11.png" alt="Exosphere event poster" width="1100" height="1100">
+            </div>
 
-        function getVibrantDarkColor() {
-            const hue = Math.floor(Math.random() * 360);
-            const saturation = Math.floor(Math.random() * 30) + 70;
-            const lightness = Math.floor(Math.random() * 20) + 30;
-            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-        }
+            <div class="spotlight__body">
+                <p class="spotlight__eyebrow" id="spotlight-eyebrow">Next Event</p>
+                <h1 class="event-title" id="spotlight-title">EXOSPHERE 001:</h1>
+                <p class="subtitle" id="spotlight-subtitle">Future Sounds</p>
 
-        // Initial color for EXO
-        exoElement.style.color = getVibrantDarkColor();
+                <dl class="spotlight__meta" id="spotlight-meta">
+                    <div><dt>Date</dt><dd id="spotlight-date">07 . 18 . 25</dd></div>
+                    <div id="spotlight-venue-field"><dt>Venue</dt><dd id="spotlight-venue">73 York</dd></div>
+                    <div><dt>Doors</dt><dd id="spotlight-doors">10 PM · 19+</dd></div>
+                </dl>
 
-        // Change EXO color every 5 seconds
-        setInterval(() => {
-            exoElement.style.color = getVibrantDarkColor();
-        }, 5000);
-    </script>
+                <a class="ticket-button" id="primary-cta"
+                   href="https://www.bouncelife.com/events/6853b3b0647ea64a95ee46be"
+                   target="_blank" rel="noopener">
+                    Get Tickets
+                </a>
+                <p class="ticket-note" id="ticket-note"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ARCHIVE ================= -->
+    <section id="archive" class="archive" hidden>
+        <header class="archive__header">
+            <h2 class="archive__title">Previously</h2>
+            <div class="archive__controls">
+                <button class="rail-btn" id="rail-prev" type="button" aria-label="Previous events">&#8592;</button>
+                <button class="rail-btn" id="rail-next" type="button" aria-label="More events">&#8594;</button>
+            </div>
+        </header>
+        <ul class="rail" id="archive-rail" tabindex="0" aria-label="Past Exosphere events"></ul>
+    </section>
+
+    <!-- ================= STICKY CTA ================= -->
+    <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+        <div class="sticky-cta__inner">
+            <span class="sticky-cta__text" id="sticky-cta-text">EXOSPHERE 001</span>
+            <a class="ticket-button ticket-button--compact" id="sticky-cta-link"
+               href="https://www.bouncelife.com/events/6853b3b0647ea64a95ee46be"
+               target="_blank" rel="noopener" tabindex="-1">
+                Get Tickets
+            </a>
+        </div>
+    </div>
+
+    <script src="app.js" defer></script>
 </body>
 </html>
