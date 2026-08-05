@@ -63,9 +63,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* pre, not nowrap: both keep the mark on one line, but pre also stops HTML
-       from collapsing the double space between EXO and SPHERE. */
-    white-space: pre;
+    white-space: nowrap;
     width: 100%;
     padding: 0 20px;
     min-height: 1.2em;
