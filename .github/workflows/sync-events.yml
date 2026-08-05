@@ -33,6 +33,19 @@ jobs:
       - name: Verify colour maths before trusting its output
         run: npm test
 
+      # Fail here rather than 30 lines into Node output. A missing secret is a
+      # setup problem, not a code problem, and the run should say so plainly.
+      - name: Check the Eventbrite secret exists
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: |
+          if [[ -z "$EVENTBRITE_TOKEN" ]]; then
+            echo "::error::Repository secret EVENTBRITE_TOKEN is missing or empty."
+            echo "Add it under Settings -> Secrets and variables -> Actions."
+            echo "Eventbrite has no public event API, so the sync cannot run without it."
+            exit 1
+          fi
+
       - name: Fetch events and solve the poster palette
         env:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
@@ -40,12 +53,15 @@ jobs:
 
       - name: Commit if anything changed
         run: |
-          if [[ -z $(git status --porcelain events.json posters) ]]; then
+          # posters/ may not exist on a first run; naming a missing path makes
+          # git status exit non-zero and kill the job under `set -e`.
+          if [[ -z $(git status --porcelain -- events.json posters 2>/dev/null) ]]; then
             echo "No change."
             exit 0
           fi
           git config user.name  "exosphere-bot"
           git config user.email "actions@github.com"
-          git add events.json posters
+          git add events.json
+          if [[ -d posters ]]; then git add posters; fi
           git commit -m "chore: sync events from Eventbrite"
           git push

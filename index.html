@@ -16,9 +16,27 @@
 <body>
     <!-- ================= HERO ================= -->
     <section id="page1">
-        <div class="logo" id="logo">
-            <span class="exo" id="exo">EXO </span><span class="sphere">S P H E R E</span>
-        </div>
+        <!-- One evenly-spaced word. The letters used to be two spans — a tight
+             "EXO" against a spaced "S P H E R E" — which made the two halves
+             read as different words. -->
+        <!-- The double space between O and S is deliberate and is preserved by
+             white-space: pre on .logo — it keeps the EXO / SPHERE break that the
+             mark has always had, without going back to two separate spans. -->
+        <div class="logo" id="logo" role="img" aria-label="Exosphere">E X O  S P H E R E</div>
+        <!-- Separators are marked aria-hidden so a screen reader reads the five
+             phrases rather than a string of dashes. -->
+        <p class="tagline">
+            <span class="tagline__word">Ottawa-Based</span>
+            <span class="tagline__sep" aria-hidden="true">-</span>
+            <span class="tagline__word">Multi-Genre</span>
+            <span class="tagline__sep" aria-hidden="true">-</span>
+            <span class="tagline__word">Open Decks</span>
+            <span class="tagline__sep" aria-hidden="true">-</span>
+            <span class="tagline__word">Showcases</span>
+            <span class="tagline__sep" aria-hidden="true">-</span>
+            <span class="tagline__word">Local Talent</span>
+        </p>
+
         <div class="date" id="hero-date">7 . 18 . 25</div>
 
         <a class="scroll-cue" href="#spotlight" aria-label="Scroll to the next event">
@@ -57,6 +75,21 @@
                 <p class="ticket-note" id="ticket-note"></p>
             </div>
         </div>
+    </section>
+
+    <!-- ================= UPCOMING =================
+         Future events other than the spotlight. Sits below the primary CTA on
+         purpose: these are "there is more", not competition for the event you
+         can buy into right now. Hidden until app.js finds something to put here. -->
+    <section id="upcoming" class="archive archive--upcoming" hidden>
+        <header class="archive__header">
+            <h2 class="archive__title">Also Coming Up</h2>
+            <div class="archive__controls">
+                <button class="rail-btn" id="upcoming-prev" type="button" aria-label="Previous upcoming events">&#8592;</button>
+                <button class="rail-btn" id="upcoming-next" type="button" aria-label="More upcoming events">&#8594;</button>
+            </div>
+        </header>
+        <ul class="rail" id="upcoming-rail" tabindex="0" aria-label="Upcoming Exosphere events"></ul>
     </section>
 
     <!-- ================= ARCHIVE ================= -->

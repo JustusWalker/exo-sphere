@@ -122,6 +122,43 @@ function normalise(ev) {
     };
 }
 
+/**
+ * Sort events into the three tiers the page renders.
+ *
+ * Three, not two. The spotlight is the event we are actively selling; anything
+ * else in the future is still on sale and must not be filed under a heading
+ * that reads "Previously", which is where it landed when the split was simply
+ * "spotlight and everything else".
+ *
+ *   spotlight — soonest upcoming; falls back to the most recent past event when
+ *               nothing is upcoming, so the hero is never empty
+ *   upcoming  — remaining future events, ascending (the nearest matters most)
+ *   archive   — past events only, descending (the newest matters most)
+ *
+ * An event is "past" once it has ended, not once it has started, so a night in
+ * progress stays the spotlight instead of dropping into the archive at 10pm.
+ *
+ * @param {object[]} events  normalised events
+ * @param {number} now       epoch ms
+ */
+export function splitEvents(events, now = Date.now()) {
+    const endOf = (e) => new Date(e.endUtc || e.startUtc).getTime();
+    const byDateDesc = (a, b) => new Date(b.startUtc) - new Date(a.startUtc);
+    const byDateAsc = (a, b) => new Date(a.startUtc) - new Date(b.startUtc);
+
+    const future = events.filter((e) => endOf(e) >= now).sort(byDateAsc);
+    const past = events.filter((e) => endOf(e) < now).sort(byDateDesc);
+
+    const spotlight = future[0] || past[0] || null;
+    if (!spotlight) return { spotlight: null, upcoming: [], archive: [] };
+
+    return {
+        spotlight,
+        upcoming: future.filter((e) => e.id !== spotlight.id),
+        archive: past.filter((e) => e.id !== spotlight.id),
+    };
+}
+
 // ---------------------------------------------------------------------------
 // Posters + palette
 // ---------------------------------------------------------------------------
@@ -230,21 +267,14 @@ async function main() {
     }
 
     const events = raw.map(normalise).filter((e) => e.startUtc);
-    events.sort((a, b) => new Date(b.startUtc) - new Date(a.startUtc)); // newest first
-
     const now = Date.now();
-    const upcoming = events.filter((e) => new Date(e.endUtc || e.startUtc).getTime() >= now);
-    const past = events.filter((e) => new Date(e.endUtc || e.startUtc).getTime() < now);
+    const {
+        spotlight: spotlightSource,
+        upcoming: upcomingSource,
+        archive: archiveSource,
+    } = splitEvents(events, now);
 
-    // Soonest upcoming is the spotlight. With nothing upcoming, the most recent
-    // past event takes the slot and the page labels it as past — the hero must
-    // never render empty.
-    const spotlightSource = upcoming.length > 0 ? upcoming[upcoming.length - 1] : past[0];
-    const archiveSource = events.filter((e) => e.id !== spotlightSource.id);
-
-    const out = [];
-    for (const ev of [spotlightSource, ...archiveSource]) {
-        const isSpotlight = ev.id === spotlightSource.id;
+    async function build(ev, { isSpotlight = false } = {}) {
         console.log(`  · ${ev.fullName}`);
 
         const poster = await mirrorPoster(ev);
@@ -261,7 +291,8 @@ async function main() {
             isPast: new Date(ev.endUtc || ev.startUtc).getTime() < now,
         };
 
-        // Only the spotlight drives the button palette.
+        // Only the spotlight drives the button palette — the CTA should follow
+        // the event you can actually buy into right now.
         if (isSpotlight && poster) {
             record.theme = await solveTheme(poster.buf);
             const m = record.theme.measured;
@@ -270,15 +301,24 @@ async function main() {
             if (record.theme.needsRing) console.warn('    ! object contrast needed a ring');
         }
 
-        out.push(record);
+        return record;
     }
+
+    const spotlight = await build(spotlightSource, { isSpotlight: true });
+    const upcomingOut = [];
+    for (const ev of upcomingSource) upcomingOut.push(await build(ev));
+    const archiveOut = [];
+    for (const ev of archiveSource) archiveOut.push(await build(ev));
+
+    console.log(`  ${upcomingOut.length} upcoming, ${archiveOut.length} past`);
 
     const payload = {
         generatedAt: new Date().toISOString(),
         source: 'eventbrite',
         organizationId: ORG_ID,
-        spotlight: out[0],
-        archive: out.slice(1),
+        spotlight,
+        upcoming: upcomingOut,
+        archive: archiveOut,
     };
 
     const json = `${JSON.stringify(payload, null, 2)}\n`;

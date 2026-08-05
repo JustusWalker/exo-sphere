@@ -132,50 +132,56 @@
         }
     }
 
-    // --------------------------------------------------------- archive ---
+    // ----------------------------------------------------------- rails ---
 
-    function renderArchive(events) {
-        const section = $('archive');
-        const rail = $('archive-rail');
-        if (!section || !rail || !Array.isArray(events) || events.length === 0) return;
+    function railItem(ev) {
+        const li = document.createElement('li');
+        li.className = 'rail__item';
 
-        rail.replaceChildren(...events.map((ev) => {
-            const li = document.createElement('li');
-            li.className = 'rail__item';
+        const a = document.createElement('a');
+        a.className = 'rail__link';
+        a.href = ev.url || '#';
+        a.target = '_blank';
+        a.rel = 'noopener';
 
-            const a = document.createElement('a');
-            a.className = 'rail__link';
-            a.href = ev.url || '#';
-            a.target = '_blank';
-            a.rel = 'noopener';
+        const img = document.createElement('img');
+        img.className = 'rail__img';
+        img.src = ev.poster || '';
+        img.alt = `${ev.name} poster`;
+        img.loading = 'lazy';
+        img.decoding = 'async';
 
-            const img = document.createElement('img');
-            img.className = 'rail__img';
-            img.src = ev.poster || '';
-            img.alt = `${ev.name} poster`;
-            img.loading = 'lazy';
-            img.decoding = 'async';
+        const name = document.createElement('p');
+        name.className = 'rail__name';
+        name.textContent = ev.name;
 
-            const name = document.createElement('p');
-            name.className = 'rail__name';
-            name.textContent = ev.name;
+        const date = document.createElement('p');
+        date.className = 'rail__date';
+        date.textContent = formatDate(ev.startLocal || ev.startUtc);
 
-            const date = document.createElement('p');
-            date.className = 'rail__date';
-            date.textContent = formatDate(ev.startLocal || ev.startUtc);
-
-            a.append(img, name, date);
-            li.append(a);
-            return li;
-        }));
-
-        section.hidden = false;
-        wireRail(rail);
+        a.append(img, name, date);
+        li.append(a);
+        return li;
     }
 
-    function wireRail(rail) {
-        const prev = $('rail-prev');
-        const next = $('rail-next');
+    /**
+     * Both event rails are the same component with different data and different
+     * meaning — upcoming events above, past events below. An empty list leaves
+     * the section hidden rather than rendering a heading over nothing.
+     */
+    function renderRail({ sectionId, railId, prevId, nextId }, events) {
+        const section = $(sectionId);
+        const rail = $(railId);
+        if (!section || !rail || !Array.isArray(events) || events.length === 0) return;
+
+        rail.replaceChildren(...events.map(railItem));
+        section.hidden = false;
+        wireRail(rail, prevId, nextId);
+    }
+
+    function wireRail(rail, prevId, nextId) {
+        const prev = $(prevId);
+        const next = $(nextId);
         const step = () => rail.clientWidth * 0.8;
 
         const update = () => {
@@ -236,7 +242,14 @@
             const data = await res.json();
 
             renderSpotlight(data.spotlight);
-            renderArchive(data.archive);
+            renderRail(
+                { sectionId: 'upcoming', railId: 'upcoming-rail', prevId: 'upcoming-prev', nextId: 'upcoming-next' },
+                data.upcoming,
+            );
+            renderRail(
+                { sectionId: 'archive', railId: 'archive-rail', prevId: 'rail-prev', nextId: 'rail-next' },
+                data.archive,
+            );
         } catch (err) {
             // The static markup already renders a complete spotlight, so a
             // failure here is a non-event. Log it and leave the page alone.

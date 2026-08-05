@@ -63,25 +63,55 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
+    /* pre, not nowrap: both keep the mark on one line, but pre also stops HTML
+       from collapsing the double space between EXO and SPHERE. */
+    white-space: pre;
     width: 100%;
     padding: 0 20px;
     min-height: 1.2em;
     line-height: 1;
     transform: translateY(0.1em);
-    /* Set once on the parent so the two halves cannot drift apart again. */
     color: #fff;
-}
-
-/* Both halves are styled identically. They stay separate elements only because
-   the letter-spacing in the markup is what produces the E X O / S P H E R E
-   spacing; merging them would change the look. */
-.exo,
-.sphere {
-    display: inline-block;
+    /* Kerning off so the barcode glyphs keep uniform bar widths — the font
+       draws bars per character and letting pairs kern makes the code ragged. */
     letter-spacing: 0;
     font-kerning: none;
     font-feature-settings: "kern" 0;
+}
+
+/* Deliberately quiet. It sits directly under a logo that can reach 9rem, so it
+   reads as a caption to the mark rather than a second headline. Same type
+   vocabulary as .scroll-cue and .spotlight__eyebrow — the page already has one
+   voice for small uppercase text and this joins it. */
+.tagline {
+    margin: 0.9em 0 0;
+    padding: 0 1.5rem;
+    max-width: 46rem;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 300;
+    font-size: clamp(0.6rem, 1.1vw, 0.82rem);
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    line-height: 2;
+    text-align: center;
+    color: var(--fg-dim);
+    user-select: none;
+    /* Wrap between phrases on narrow screens rather than forcing one long line
+       or breaking a phrase across two. */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 0.75em;
+}
+
+.tagline__word {
+    white-space: nowrap;
+}
+
+/* A step dimmer than the words so the phrases read first and the dashes just
+   separate them. */
+.tagline__sep {
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .date {
@@ -431,6 +461,29 @@ body {
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     color: rgba(255, 255, 255, 0.42);
+}
+
+/* ----------------------------------------------------------- upcoming --- */
+
+/* Same rail, read differently. Past events are desaturated because they are
+   history; these are still on sale, so they keep their colour. Cards are a size
+   down from the archive so the section stays subordinate to the spotlight it
+   sits under, and the heading takes the poster accent to mark it as live. */
+.archive--upcoming {
+    padding-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+.archive--upcoming .archive__title {
+    color: var(--cta-accent);
+}
+
+.archive--upcoming .rail__item {
+    width: clamp(170px, 19vw, 240px);
+}
+
+.archive--upcoming .rail__img {
+    filter: none;
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* ---------------------------------------------------------- responsive --- */
