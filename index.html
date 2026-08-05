@@ -44,30 +44,30 @@
     </section>
 
     <!-- ================= SPOTLIGHT =================
-         The markup below is a real, working fallback. If events.json fails to
-         load the page still renders a complete spotlight rather than an empty
-         hero; app.js replaces these values when data arrives. -->
+         Deliberately empty until app.js fills it from events.json. This used to
+         ship a complete hard-coded EXOSPHERE 001 — poster, date, venue and a
+         bouncelife ticket link — as a "fallback". In practice it flashed a year
+         old event on every slow load and pointed at a dead ticket page, so the
+         placeholder was worse than nothing. Everything below is hidden until
+         there is real data to put in it. -->
     <section id="spotlight" class="spotlight">
         <div class="spotlight__inner">
             <div class="spotlight__media">
-                <img class="event-poster" id="spotlight-poster"
-                     src="EXO11.png" alt="Exosphere event poster" width="1100" height="1100">
+                <img class="event-poster" id="spotlight-poster" alt="" width="1100" height="1100" hidden>
             </div>
 
             <div class="spotlight__body">
                 <p class="spotlight__eyebrow" id="spotlight-eyebrow">Next Event</p>
-                <h1 class="event-title" id="spotlight-title">EXOSPHERE 001:</h1>
-                <p class="subtitle" id="spotlight-subtitle">Future Sounds</p>
+                <h1 class="event-title" id="spotlight-title">Loading…</h1>
+                <p class="subtitle" id="spotlight-subtitle" hidden></p>
 
                 <dl class="spotlight__meta" id="spotlight-meta">
-                    <div><dt>Date</dt><dd id="spotlight-date">07 . 18 . 25</dd></div>
-                    <div id="spotlight-venue-field"><dt>Venue</dt><dd id="spotlight-venue">73 York</dd></div>
-                    <div><dt>Doors</dt><dd id="spotlight-doors">10 PM · 19+</dd></div>
+                    <div id="spotlight-date-field" hidden><dt>Date</dt><dd id="spotlight-date"></dd></div>
+                    <div id="spotlight-venue-field" hidden><dt>Venue</dt><dd id="spotlight-venue"></dd></div>
+                    <div id="spotlight-doors-field" hidden><dt>Doors</dt><dd id="spotlight-doors"></dd></div>
                 </dl>
 
-                <a class="ticket-button" id="primary-cta"
-                   href="https://www.bouncelife.com/events/6853b3b0647ea64a95ee46be"
-                   target="_blank" rel="noopener">
+                <a class="ticket-button" id="primary-cta" href="#" target="_blank" rel="noopener" hidden>
                     Get Tickets
                 </a>
                 <p class="ticket-note" id="ticket-note"></p>
@@ -98,6 +98,38 @@
         </header>
         <ul class="rail" id="archive-rail" tabindex="0" aria-label="Past Exosphere events"></ul>
     </section>
+
+    <!-- ================= CONTACT ================= -->
+    <footer class="contact">
+        <div class="contact__inner">
+            <p class="contact__label">Get In Touch</p>
+
+            <ul class="contact__links">
+                <li>
+                    <a class="contact__link" href="https://www.instagram.com/exo.ottawa/"
+                       target="_blank" rel="noopener">
+                        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="3" y="3" width="18" height="18" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.2" cy="6.8" r="1.2" class="is-filled"/>
+                        </svg>
+                        <span>@exo.ottawa</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="contact__link" href="mailto:media.exosphere@gmail.com">
+                        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="2.5" y="5" width="19" height="14" rx="2"/>
+                            <path d="M3 7l9 6 9-6"/>
+                        </svg>
+                        <span>media.exosphere@gmail.com</span>
+                    </a>
+                </li>
+            </ul>
+
+            <p class="contact__note">Exosphere · Ottawa, Ontario</p>
+        </div>
+    </footer>
 
     <!-- ================= STICKY CTA ================= -->
     <div class="sticky-cta" id="sticky-cta" aria-hidden="true">

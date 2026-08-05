@@ -20,21 +20,27 @@ async function poster({ bg, strokes = [], size = 400 }) {
   return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
-test('the real EXO11 poster yields its neon green and cyan, not grey', async () => {
-  const buf = fs.readFileSync(path.join(repoRoot, 'EXO11.png'));
+// A real poster, not a synthetic one: green linework and teal type over near
+// black, which is the shape of artwork that used to come back as mud. This was
+// EXO11.png at the repo root until that file was removed for showing up on the
+// page as a stale fallback; the mirrored Exosphere 003 poster is the same kind
+// of image and guards the same regression.
+const GREEN_TEAL_POSTER = path.join(repoRoot, 'posters', '1980867958387.jpg');
+
+test('a real green-and-teal poster yields its accents, not grey', async () => {
+  const buf = fs.readFileSync(GREEN_TEAL_POSTER);
   const { accents, fellBack } = await extractAccents(buf);
 
   assert.equal(fellBack, false);
   const hues = accents.map((a) => hexToOklch(a).h);
 
-  // Poster identity is a green around 145 deg and a cyan around 190 deg.
   assert.ok(
     hues.some((h) => hueDistance(h, 147) < 20),
     `expected a green near 147deg, got ${hues.map((h) => h.toFixed(0))}`,
   );
   assert.ok(
-    hues.some((h) => hueDistance(h, 190) < 25),
-    `expected a cyan near 190deg, got ${hues.map((h) => h.toFixed(0))}`,
+    hues.some((h) => hueDistance(h, 195) < 25),
+    `expected a teal near 195deg, got ${hues.map((h) => h.toFixed(0))}`,
   );
 
   // The regression that matters: mud. Both accents must be genuinely saturated.

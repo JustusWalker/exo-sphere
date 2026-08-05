@@ -54,6 +54,14 @@
         el.hidden = !value;
     }
 
+    /** Write a definition-list value and show or hide it together with its label. */
+    function setField(fieldId, valueId, value) {
+        const field = $(fieldId);
+        const el = $(valueId);
+        if (el) el.textContent = value || '';
+        if (field) field.hidden = !value;
+    }
+
     // ----------------------------------------------------- theme wiring ---
 
     /**
@@ -86,14 +94,15 @@
 
         setText($('spotlight-title'), ev.name);
         setOptional($('spotlight-subtitle'), ev.subtitle);
-        // Hide the whole field, not just the value — an orphaned "Venue" label
-        // with nothing under it looks broken.
-        setText($('spotlight-venue'), ev.venue);
-        const venueField = $('spotlight-venue-field');
-        if (venueField) venueField.hidden = !ev.venue;
-        setText($('spotlight-date'), formatDate(ev.startLocal || ev.startUtc));
-        setText($('hero-date'), formatDate(ev.startLocal || ev.startUtc));
-        setText($('spotlight-doors'), formatDoors(ev.startLocal || ev.startUtc, ev.ageLimit));
+
+        // Each meta field hides as a pair with its own label — an orphaned
+        // "Venue" heading with nothing under it looks broken.
+        const when = ev.startLocal || ev.startUtc;
+        setField('spotlight-date-field', 'spotlight-date', formatDate(when));
+        setField('spotlight-venue-field', 'spotlight-venue', ev.venue);
+        setField('spotlight-doors-field', 'spotlight-doors', formatDoors(when, ev.ageLimit));
+
+        setText($('hero-date'), formatDate(when));
         setText($('sticky-cta-text'), ev.name);
 
         // Eyebrow and hero scroll cue must agree about what is below the fold.
@@ -107,13 +116,18 @@
         if (poster && ev.poster) {
             poster.src = ev.poster;
             poster.alt = `${ev.name} poster`;
+            poster.hidden = false;
         }
 
         const note = $('ticket-note');
         const ctas = [$('primary-cta'), $('sticky-cta-link')].filter(Boolean);
 
         for (const cta of ctas) {
-            if (ev.url) cta.href = ev.url;
+            // Only reveal a button once it has somewhere real to go.
+            if (ev.url) {
+                cta.href = ev.url;
+                cta.hidden = false;
+            }
 
             if (ev.isPast) {
                 cta.textContent = 'View Event';
@@ -346,9 +360,14 @@
                 data.archive,
             );
         } catch (err) {
-            // The static markup already renders a complete spotlight, so a
-            // failure here is a non-event. Log it and leave the page alone.
-            console.warn('[exosphere] falling back to static markup:', err.message);
+            // There is no hard-coded event to fall back to any more — that
+            // placeholder advertised a year-old night with a dead ticket link.
+            // Say plainly that the listing could not load and point at the
+            // socials, which are in the footer and always correct.
+            console.warn('[exosphere] events.json did not load:', err.message);
+            setText($('spotlight-title'), 'Event details unavailable');
+            const note = $('ticket-note');
+            if (note) note.textContent = 'Could not load the listing — check our Instagram for the next date.';
         }
     }
 

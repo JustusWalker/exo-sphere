@@ -512,8 +512,8 @@ body {
     display: grid;
     grid-template-columns: auto auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: clamp(0.9rem, 2.5vw, 1.75rem);
-    padding: clamp(0.75rem, 1.6vw, 1.1rem) clamp(0.9rem, 2vw, 1.4rem);
+    gap: clamp(1rem, 2.5vw, 1.9rem);
+    padding: clamp(1rem, 2vw, 1.4rem) clamp(1rem, 2.2vw, 1.6rem);
     text-decoration: none;
     color: var(--fg);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -557,12 +557,16 @@ body {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* Big enough to actually read the artwork. 3/4 matches the portrait crop
+   Eventbrite posters come in, so the whole poster shows instead of a square
+   punched out of the middle of it. */
 .schedule__thumb {
-    width: clamp(48px, 6vw, 68px);
-    aspect-ratio: 1 / 1;
+    width: clamp(96px, 11vw, 150px);
+    aspect-ratio: 3 / 4;
     object-fit: cover;
     display: block;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .schedule__body { min-width: 0; }
@@ -614,6 +618,86 @@ body {
     color: rgba(255, 255, 255, 0.45);
 }
 
+/* ------------------------------------------------------------ contact --- */
+
+.contact {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* Clears the sticky bar so the last line is never trapped underneath it. */
+    padding: clamp(3rem, 8vh, 5rem) 0 clamp(5rem, 12vh, 7rem);
+}
+
+.contact__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(1.25rem, 3vw, 1.9rem);
+}
+
+.contact__label {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+}
+
+.contact__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.contact__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    padding: 0.55em 0.2em;
+    text-decoration: none;
+    color: var(--fg);
+    font-family: 'Inconsolata', monospace;
+    font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+    letter-spacing: 0.16em;
+    transition: color 140ms ease;
+}
+.contact__link:hover { color: var(--cta-accent); }
+.contact__link:focus-visible {
+    outline: 2px solid var(--cta-ring);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+/* Stroked icons so they sit at the same visual weight as the type beside them
+   and pick up the poster accent on hover along with the label. */
+.contact__icon {
+    width: 1.15em;
+    height: 1.15em;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.contact__icon .is-filled { fill: currentColor; stroke: none; }
+
+.contact__note {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+}
+
 /* ---------------------------------------------------------- responsive --- */
 
 @media (max-width: 860px) {
@@ -631,19 +715,38 @@ body {
 }
 
 @media (max-width: 700px) {
-    /* Drop the thumbnail and let the row become two lines: date beside the
-       title, action underneath at full width. Four columns on a phone squeezes
-       the title to an ellipsis and shrinks the tap target. */
+    /* Poster on the left, date and details stacked beside it, action full width
+       underneath. Four columns on a phone squeezes the title to an ellipsis and
+       shrinks the tap target — but the poster stays, it is half the point. */
     .schedule__link {
         grid-template-columns: auto minmax(0, 1fr);
-        row-gap: 0.9rem;
+        grid-template-areas:
+            'poster when'
+            'poster body'
+            'action action';
+        align-items: start;
+        row-gap: 0.55rem;
+        column-gap: 1rem;
     }
-    .schedule__thumb { display: none; }
-    .schedule__action {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 0.85em 1rem;
+    .schedule__thumb { grid-area: poster; width: clamp(84px, 26vw, 120px); }
+    /* The poster spans both text rows and is taller than they are, so the spare
+       height is split between them. Pull each toward the shared edge or the
+       date and the title drift to opposite ends of the card. */
+    .schedule__when  { grid-area: when; align-self: end; }
+    .schedule__body  { grid-area: body; align-self: start; }
+    .schedule__action { grid-area: action; text-align: center; padding: 0.85em 1rem; }
+
+    /* Horizontal on mobile so the date sits on one line above the title rather
+       than pushing the whole row tall. */
+    .schedule__when {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
+        gap: 0.5em;
+        min-width: 0;
     }
+    .schedule__day { font-size: 1.35rem; margin: 0; }
+
     .schedule__name { white-space: normal; }
 }
 
