@@ -28,7 +28,6 @@
         body {
             margin: 0;
             padding: 0;
-            height: 200vh; /* Make body twice the height to allow scrolling */
             overflow-x: hidden;
             background: #000;
             -webkit-font-smoothing: antialiased;
@@ -41,41 +40,20 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
+            position: relative;
             width: 100%;
             height: 100vh;
-            z-index: 1;
         }
 
         #page2 {
             background: #000;
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100vh;
-            z-index: 2;
-            transform: translateY(100%);
-            will-change: transform, opacity;
-            opacity: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             padding-top: 10vh;
-            overflow-y: auto;
-        }
-
-        .page2-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            min-height: 200vh;
-            padding-bottom: 100vh;
         }
 
         .logo {
@@ -169,7 +147,7 @@
             box-sizing: border-box;
         }
         .ticket-button {
-            margin-bottom: 25vh;
+            margin-bottom: 10vh;
             padding: 0.8em 2em;
             font-family: 'Inconsolata', 'Courier New', monospace;
             font-size: 1.2vw;
@@ -263,7 +241,7 @@
                 margin-bottom: 6vh;
             }
             .ticket-button {
-                margin-bottom: 17.5vh;
+                margin-bottom: 8vh;
             }
         }
         @media (max-width: 480px) {
@@ -285,7 +263,7 @@
                 width: 90%;
             }
             .ticket-button {
-                margin-bottom: 12.5vh;
+                margin-bottom: 6vh;
             }
         }
         @keyframes hueShift {
@@ -311,7 +289,6 @@
 
     <script>
         const exoElement = document.getElementById("exo");
-        const page2Element = document.getElementById("page2");
 
         function getVibrantDarkColor() {
             const hue = Math.floor(Math.random() * 360);
@@ -327,17 +304,6 @@
         setInterval(() => {
             exoElement.style.color = getVibrantDarkColor();
         }, 5000);
-
-        // Handle scroll animation
-        window.addEventListener('scroll', () => {
-            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            const translateY = 100 - (scrollPercent * 100);
-            // Reach full opacity by 60% of scroll and use exponential curve for faster fade
-            const opacity = Math.min(1, Math.pow(scrollPercent * 1.67, 2));
-            
-            page2Element.style.transform = `translateY(${translateY}%)`;
-            page2Element.style.opacity = opacity;
-        });
     </script>
 </body>
 </html>
