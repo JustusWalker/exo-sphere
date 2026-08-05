@@ -1,0 +1,19 @@
+{
+  "name": "exo-sphere",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Exosphere event site — static page plus the build-time Eventbrite sync.",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-events.mjs",
+    "test": "node --test \"scripts/test/*.test.mjs\"",
+    "serve": "python3 -m http.server 8000",
+    "verify": "node scripts/verify-api.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

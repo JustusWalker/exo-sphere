@@ -1,0 +1,51 @@
+name: Sync Eventbrite events
+
+on:
+  # Backstop. Webhook deliveries do get dropped, and a silently stale spotlight
+  # is worse than an hour of lag.
+  schedule:
+    - cron: '0 * * * *'
+  # Fired by the Cloudflare Worker when Eventbrite reports a change.
+  repository_dispatch:
+    types: [eventbrite-event]
+  workflow_dispatch:
+
+concurrency:
+  group: sync-events
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Verify colour maths before trusting its output
+        run: npm test
+
+      - name: Fetch events and solve the poster palette
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: npm run sync
+
+      - name: Commit if anything changed
+        run: |
+          if [[ -z $(git status --porcelain events.json posters) ]]; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name  "exosphere-bot"
+          git config user.email "actions@github.com"
+          git add events.json posters
+          git commit -m "chore: sync events from Eventbrite"
+          git push
