@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-05T09:04:27.942Z",
+  "generatedAt": "2026-08-05T09:48:57.285Z",
   "source": "eventbrite",
   "organizationId": "2988846143592",
   "spotlight": {
     "id": "1996773948632",
     "name": "Exo 008 - Jamaica independence day",
     "subtitle": "",
-    "startUtc": "2026-08-09T02:00:00Z",
-    "startLocal": "2026-08-08T22:00:00",
+    "startUtc": "2026-08-08T02:00:00Z",
+    "startLocal": "2026-08-07T22:00:00",
     "url": "https://www.eventbrite.com/e/exo-008-jamaica-independence-day-tickets-1996773948632",
     "venue": "Poa Tiki Bar",
     "poster": "posters/1996773948632.jpg",
