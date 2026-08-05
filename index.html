@@ -19,10 +19,9 @@
         <!-- One evenly-spaced word. The letters used to be two spans — a tight
              "EXO" against a spaced "S P H E R E" — which made the two halves
              read as different words. -->
-        <!-- The double space between O and S is deliberate and is preserved by
-             white-space: pre on .logo — it keeps the EXO / SPHERE break that the
-             mark has always had, without going back to two separate spans. -->
-        <div class="logo" id="logo" role="img" aria-label="Exosphere">E X O  S P H E R E</div>
+        <!-- EXO tight, SPHERE spaced, double gap between them. white-space: pre
+             on .logo is what stops HTML collapsing that double space. -->
+        <div class="logo" id="logo" role="img" aria-label="Exosphere">EXO  S P H E R E</div>
         <!-- Separators are marked aria-hidden so a screen reader reads the five
              phrases rather than a string of dashes. -->
         <p class="tagline">
