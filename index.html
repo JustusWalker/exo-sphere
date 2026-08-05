@@ -79,15 +79,12 @@
          Future events other than the spotlight. Sits below the primary CTA on
          purpose: these are "there is more", not competition for the event you
          can buy into right now. Hidden until app.js finds something to put here. -->
-    <section id="upcoming" class="archive archive--upcoming" hidden>
-        <header class="archive__header">
-            <h2 class="archive__title">Also Coming Up</h2>
-            <div class="archive__controls">
-                <button class="rail-btn" id="upcoming-prev" type="button" aria-label="Previous upcoming events">&#8592;</button>
-                <button class="rail-btn" id="upcoming-next" type="button" aria-label="More upcoming events">&#8594;</button>
-            </div>
+    <section id="upcoming" class="schedule-section" hidden>
+        <header class="schedule-header">
+            <h2 class="schedule-title">Upcoming Schedule</h2>
+            <p class="schedule-note" id="schedule-note"></p>
         </header>
-        <ul class="rail" id="upcoming-rail" tabindex="0" aria-label="Upcoming Exosphere events"></ul>
+        <ol class="schedule" id="upcoming-list"></ol>
     </section>
 
     <!-- ================= ARCHIVE ================= -->

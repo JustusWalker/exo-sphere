@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T07:17:30.489Z",
+  "generatedAt": "2026-08-05T09:04:27.942Z",
   "source": "eventbrite",
   "organizationId": "2988846143592",
   "spotlight": {
@@ -34,6 +34,20 @@
       }
     }
   },
+  "upcoming": [
+    {
+      "id": "1996775916518",
+      "name": "Exo 009:",
+      "subtitle": "XCXosphere",
+      "startUtc": "2026-08-15T02:00:00Z",
+      "startLocal": "2026-08-14T22:00:00",
+      "url": "https://www.eventbrite.com/e/exo-009-xcxosphere-tickets-1996775916518",
+      "venue": "Sky Lounge",
+      "poster": "posters/1996775916518.jpg",
+      "isSoldOut": false,
+      "isPast": false
+    }
+  ],
   "archive": [
     {
       "id": "1993486151743",

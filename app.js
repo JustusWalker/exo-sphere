@@ -164,10 +164,108 @@
         return li;
     }
 
+    // -------------------------------------------------------- schedule ---
+
+    const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    function dateParts(iso) {
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return null;
+        return {
+            month: MONTHS[d.getMonth()],
+            day: String(d.getDate()).padStart(2, '0'),
+            weekday: d.toLocaleDateString(undefined, { weekday: 'short' }).toUpperCase(),
+        };
+    }
+
     /**
-     * Both event rails are the same component with different data and different
-     * meaning — upcoming events above, past events below. An empty list leaves
-     * the section hidden rather than rendering a heading over nothing.
+     * Upcoming events are a schedule, not a gallery. Poster thumbnails alone
+     * make someone squint at artwork to work out *when* something is; a dated
+     * row answers that at a glance and still carries the poster and a direct
+     * ticket link. The whole row is the link so the target is large.
+     */
+    function scheduleRow(ev) {
+        const li = document.createElement('li');
+        li.className = 'schedule__item';
+
+        const a = document.createElement('a');
+        a.className = 'schedule__link';
+        a.href = ev.url || '#';
+        a.target = '_blank';
+        a.rel = 'noopener';
+
+        const when = document.createElement('div');
+        when.className = 'schedule__when';
+        const parts = dateParts(ev.startLocal || ev.startUtc);
+        if (parts) {
+            const m = document.createElement('span');
+            m.className = 'schedule__month';
+            m.textContent = parts.month;
+            const day = document.createElement('span');
+            day.className = 'schedule__day';
+            day.textContent = parts.day;
+            const wd = document.createElement('span');
+            wd.className = 'schedule__weekday';
+            wd.textContent = parts.weekday;
+            when.append(m, day, wd);
+        }
+
+        const thumb = document.createElement('img');
+        thumb.className = 'schedule__thumb';
+        thumb.src = ev.poster || '';
+        thumb.alt = '';
+        thumb.loading = 'lazy';
+        thumb.decoding = 'async';
+
+        const body = document.createElement('div');
+        body.className = 'schedule__body';
+
+        const name = document.createElement('p');
+        name.className = 'schedule__name';
+        // The spotlight splits "Exo 009: XCXosphere" across a title and a
+        // subtitle line, so the stored name keeps its trailing colon. A schedule
+        // row is one line, so rejoin them — "EXO 009:" alone reads as truncated.
+        name.textContent = ev.subtitle ? `${ev.name} ${ev.subtitle}` : ev.name;
+        body.append(name);
+
+        const meta = [ev.venue, formatDoors(ev.startLocal || ev.startUtc)].filter(Boolean).join(' · ');
+        if (meta) {
+            const m = document.createElement('p');
+            m.className = 'schedule__meta';
+            m.textContent = meta;
+            body.append(m);
+        }
+
+        const action = document.createElement('span');
+        action.className = 'schedule__action';
+        action.textContent = ev.isSoldOut ? 'Sold Out' : 'Get Tickets';
+        if (ev.isSoldOut) action.classList.add('is-sold-out');
+
+        a.append(when, thumb, body, action);
+        li.append(a);
+        return li;
+    }
+
+    function renderSchedule(events) {
+        const section = $('upcoming');
+        const list = $('upcoming-list');
+        if (!section || !list || !Array.isArray(events) || events.length === 0) return;
+
+        list.replaceChildren(...events.map(scheduleRow));
+
+        const note = $('schedule-note');
+        if (note) {
+            note.textContent = events.length === 1
+                ? 'One more date on the calendar after the next event.'
+                : `${events.length} more dates on the calendar after the next event.`;
+        }
+
+        section.hidden = false;
+    }
+
+    /**
+     * An empty list leaves the section hidden rather than rendering a heading
+     * over nothing.
      */
     function renderRail({ sectionId, railId, prevId, nextId }, events) {
         const section = $(sectionId);
@@ -242,10 +340,7 @@
             const data = await res.json();
 
             renderSpotlight(data.spotlight);
-            renderRail(
-                { sectionId: 'upcoming', railId: 'upcoming-rail', prevId: 'upcoming-prev', nextId: 'upcoming-next' },
-                data.upcoming,
-            );
+            renderSchedule(data.upcoming);
             renderRail(
                 { sectionId: 'archive', railId: 'archive-rail', prevId: 'rail-prev', nextId: 'rail-next' },
                 data.archive,

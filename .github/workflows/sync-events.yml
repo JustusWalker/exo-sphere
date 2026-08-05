@@ -1,10 +1,12 @@
 name: Sync Eventbrite events
 
 on:
-  # Backstop. Webhook deliveries do get dropped, and a silently stale spotlight
-  # is worse than an hour of lag.
+  # Backstop only — the webhook below is the fast path. Webhook deliveries do
+  # get dropped, and a silently stale spotlight is worse than a little lag.
+  # GitHub queues scheduled runs on shared capacity, so treat this as "roughly
+  # every 15 minutes", not a guarantee.
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/15 * * * *'
   # Fired by the Cloudflare Worker when Eventbrite reports a change.
   repository_dispatch:
     types: [eventbrite-event]

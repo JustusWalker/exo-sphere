@@ -461,27 +461,157 @@ body {
     color: rgba(255, 255, 255, 0.42);
 }
 
-/* ----------------------------------------------------------- upcoming --- */
+/* ----------------------------------------------------------- schedule ---
 
-/* Same rail, read differently. Past events are desaturated because they are
-   history; these are still on sale, so they keep their colour. Cards are a size
-   down from the archive so the section stays subordinate to the spotlight it
-   sits under, and the heading takes the poster accent to mark it as live. */
-.archive--upcoming {
-    padding-bottom: clamp(3rem, 8vh, 5rem);
+   Upcoming events read as a calendar, not a gallery. A poster rail makes you
+   decode artwork to find a date; a dated row answers "when is the next one"
+   without reading anything. Past events keep the rail because there the poster
+   *is* the point. */
+
+.schedule-section {
+    padding: clamp(3rem, 9vh, 6rem) 0 clamp(3rem, 8vh, 5rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.schedule-section[hidden] { display: none; }
+
+.schedule-header {
+    max-width: 1180px;
+    margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+    padding: 0 clamp(1rem, 5vw, 4rem);
 }
 
-.archive--upcoming .archive__title {
+.schedule-title {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    font-weight: 400;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
     color: var(--cta-accent);
 }
 
-.archive--upcoming .rail__item {
-    width: clamp(170px, 19vw, 240px);
+.schedule-note {
+    margin: 0.6em 0 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--fg-dim);
 }
 
-.archive--upcoming .rail__img {
-    filter: none;
-    border-color: rgba(255, 255, 255, 0.18);
+.schedule {
+    list-style: none;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 4rem);
+}
+
+.schedule__item + .schedule__item { margin-top: 0.6rem; }
+
+/* The whole row is the anchor — a big target beats a small "details" link. */
+.schedule__link {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(0.9rem, 2.5vw, 1.75rem);
+    padding: clamp(0.75rem, 1.6vw, 1.1rem) clamp(0.9rem, 2vw, 1.4rem);
+    text-decoration: none;
+    color: var(--fg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.015);
+    transition: border-color 140ms ease, background-color 140ms ease;
+}
+.schedule__link:hover {
+    border-color: var(--cta-accent);
+    background: rgba(255, 255, 255, 0.045);
+}
+.schedule__link:focus-visible {
+    outline: 2px solid var(--cta-ring);
+    outline-offset: 3px;
+}
+
+/* The date block is the anchor of the row — biggest thing in it, read first. */
+.schedule__when {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.9rem;
+    font-family: 'Inconsolata', monospace;
+    line-height: 1;
+}
+.schedule__month {
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cta-accent);
+}
+.schedule__day {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 600;
+    margin: 0.12em 0;
+}
+.schedule__weekday {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.schedule__thumb {
+    width: clamp(48px, 6vw, 68px);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.schedule__body { min-width: 0; }
+
+.schedule__name {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.schedule__meta {
+    margin: 0.35em 0 0;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* Deliberately an outline, not a filled button. The solid CTA belongs to the
+   spotlight alone — two filled buttons on one screen split the decision. */
+.schedule__action {
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.7em 1.3em;
+    border: 1px solid var(--cta-accent);
+    color: var(--cta-accent);
+    border-radius: 2px;
+    transition: background-color 140ms ease, color 140ms ease;
+}
+.schedule__link:hover .schedule__action {
+    background: var(--cta-accent);
+    color: #0a0a0a;
+}
+.schedule__action.is-sold-out {
+    border-color: rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.45);
+}
+.schedule__link:hover .schedule__action.is-sold-out {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
 }
 
 /* ---------------------------------------------------------- responsive --- */
@@ -498,6 +628,23 @@ body {
     .event-poster { max-width: 480px; margin: 0 auto; }
     .ticket-button { width: 100%; }
     .date { bottom: 18vh; }
+}
+
+@media (max-width: 700px) {
+    /* Drop the thumbnail and let the row become two lines: date beside the
+       title, action underneath at full width. Four columns on a phone squeezes
+       the title to an ellipsis and shrinks the tap target. */
+    .schedule__link {
+        grid-template-columns: auto minmax(0, 1fr);
+        row-gap: 0.9rem;
+    }
+    .schedule__thumb { display: none; }
+    .schedule__action {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 0.85em 1rem;
+    }
+    .schedule__name { white-space: normal; }
 }
 
 @media (max-width: 480px) {
