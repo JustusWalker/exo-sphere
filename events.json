@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-08-05T07:17:30.489Z",
+  "source": "eventbrite",
+  "organizationId": "2988846143592",
+  "spotlight": {
+    "id": "1996773948632",
+    "name": "Exo 008 - Jamaica independence day",
+    "subtitle": "",
+    "startUtc": "2026-08-09T02:00:00Z",
+    "startLocal": "2026-08-08T22:00:00",
+    "url": "https://www.eventbrite.com/e/exo-008-jamaica-independence-day-tickets-1996773948632",
+    "venue": "Poa Tiki Bar",
+    "poster": "posters/1996773948632.jpg",
+    "isSoldOut": false,
+    "isPast": false,
+    "theme": {
+      "fill": "#ffbe5a",
+      "fillHover": "#ebab45",
+      "label": "#0a0a0a",
+      "accent": "#ff0814",
+      "ring": "#ff0814",
+      "needsRing": false,
+      "measured": {
+        "labelLc": 75.19,
+        "objectRatio": 12.77,
+        "ringRatio": 5.3,
+        "hue": 75.3,
+        "lightnessShift": 0.156,
+        "sourceAccents": [
+          "#cd8b00",
+          "#ff0814"
+        ],
+        "extractionFellBack": false
+      }
+    }
+  },
+  "archive": [
+    {
+      "id": "1993486151743",
+      "name": "Exosphere 007:",
+      "subtitle": "One Year Anniversary",
+      "startUtc": "2026-07-18T01:00:00Z",
+      "startLocal": "2026-07-17T21:00:00",
+      "url": "https://www.eventbrite.com/e/exosphere-007-one-year-anniversary-tickets-1993486151743",
+      "venue": "Poa Tiki Bar",
+      "poster": "posters/1993486151743.jpg",
+      "isSoldOut": true,
+      "isPast": true
+    },
+    {
+      "id": "1989625749175",
+      "name": "Exosphere 006",
+      "subtitle": "",
+      "startUtc": "2026-06-06T02:00:00Z",
+      "startLocal": "2026-06-05T22:00:00",
+      "url": "https://www.eventbrite.com/e/exosphere-006-tickets-1989625749175",
+      "venue": "Poa Tiki Bar",
+      "poster": "posters/1989625749175.jpg",
+      "isSoldOut": true,
+      "isPast": true
+    },
+    {
+      "id": "1988283694052",
+      "name": "EXO 005",
+      "subtitle": "",
+      "startUtc": "2026-05-02T02:00:00Z",
+      "startLocal": "2026-05-01T22:00:00",
+      "url": "https://www.eventbrite.com/e/exo-005-tickets-1988283694052",
+      "venue": "Poa Tiki Bar",
+      "poster": "posters/1988283694052.jpg",
+      "isSoldOut": true,
+      "isPast": true
+    },
+    {
+      "id": "1986482841654",
+      "name": "EXO 004:",
+      "subtitle": "Back to the 90s",
+      "startUtc": "2026-04-12T02:00:00Z",
+      "startLocal": "2026-04-11T22:00:00",
+      "url": "https://www.eventbrite.com/e/exo-004-back-to-the-90s-tickets-1986482841654",
+      "venue": "Poa Tiki Bar",
+      "poster": "posters/1986482841654.jpg",
+      "isSoldOut": true,
+      "isPast": true
+    },
+    {
+      "id": "1980867958387",
+      "name": "Exosphere 003:",
+      "subtitle": "Rewind",
+      "startUtc": "2026-01-25T03:00:00Z",
+      "startLocal": "2026-01-24T22:00:00",
+      "url": "https://www.eventbrite.com/e/exosphere-003-rewind-tickets-1980867958387",
+      "venue": "Poa Tiki Bar",
+      "poster": "posters/1980867958387.jpg",
+      "isSoldOut": true,
+      "isPast": true
+    }
+  ]
+}
