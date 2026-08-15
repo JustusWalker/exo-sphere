@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T06:36:42.816Z",
+  "generatedAt": "2026-08-15T06:41:14.137Z",
   "source": "eventbrite",
   "organizationId": "2988846143592",
   "spotlight": {
@@ -11,8 +11,8 @@
     "url": "https://www.eventbrite.com/e/exo-009-xcxosphere-tickets-1996775916518",
     "venue": "Sky Lounge",
     "poster": "posters/1996775916518.jpg",
-    "isSoldOut": false,
-    "isPast": false,
+    "isSoldOut": true,
+    "isPast": true,
     "theme": {
       "fill": "#ffb0f3",
       "fillHover": "#eb9ddf",
