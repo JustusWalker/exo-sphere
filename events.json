@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T05:36:09.938Z",
+  "generatedAt": "2026-09-09T10:06:37.025Z",
   "source": "eventbrite",
   "organizationId": "2988846143592",
   "spotlight": {
@@ -11,7 +11,7 @@
     "url": "https://www.eventbrite.com/e/exo-009-xcxosphere-tickets-1996775916518",
     "venue": "Sky Lounge",
     "poster": "posters/1996775916518.jpg",
-    "isSoldOut": false,
+    "isSoldOut": true,
     "isPast": true,
     "theme": {
       "fill": "#ffb0f3",
@@ -45,7 +45,7 @@
       "url": "https://www.eventbrite.com/e/exo-008-jamaica-independence-day-tickets-1996773948632",
       "venue": "Poa Tiki Bar",
       "poster": "posters/1996773948632.jpg",
-      "isSoldOut": false,
+      "isSoldOut": true,
       "isPast": true
     },
     {
@@ -57,7 +57,7 @@
       "url": "https://www.eventbrite.com/e/exosphere-007-one-year-anniversary-tickets-1993486151743",
       "venue": "Poa Tiki Bar",
       "poster": "posters/1993486151743.jpg",
-      "isSoldOut": false,
+      "isSoldOut": true,
       "isPast": true
     },
     {
@@ -69,7 +69,7 @@
       "url": "https://www.eventbrite.com/e/exosphere-006-tickets-1989625749175",
       "venue": "Poa Tiki Bar",
       "poster": "posters/1989625749175.jpg",
-      "isSoldOut": false,
+      "isSoldOut": true,
       "isPast": true
     },
     {
@@ -81,7 +81,7 @@
       "url": "https://www.eventbrite.com/e/exo-005-tickets-1988283694052",
       "venue": "Poa Tiki Bar",
       "poster": "posters/1988283694052.jpg",
-      "isSoldOut": false,
+      "isSoldOut": true,
       "isPast": true
     },
     {
@@ -93,7 +93,7 @@
       "url": "https://www.eventbrite.com/e/exo-004-back-to-the-90s-tickets-1986482841654",
       "venue": "Poa Tiki Bar",
       "poster": "posters/1986482841654.jpg",
-      "isSoldOut": false,
+      "isSoldOut": true,
       "isPast": true
     },
     {
@@ -105,7 +105,7 @@
       "url": "https://www.eventbrite.com/e/exosphere-003-rewind-tickets-1980867958387",
       "venue": "Poa Tiki Bar",
       "poster": "posters/1980867958387.jpg",
-      "isSoldOut": false,
+      "isSoldOut": true,
       "isPast": true
     }
   ]
