@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T23:40:19.938Z",
+  "generatedAt": "2026-09-26T06:54:03.786Z",
   "source": "eventbrite",
   "organizationId": "2988846143592",
   "spotlight": {
@@ -11,8 +11,8 @@
     "url": "https://www.eventbrite.com/e/bridgefest-benefit-tickets-2001418840629",
     "venue": "HuBar",
     "poster": "posters/2001418840629.jpg",
-    "isSoldOut": false,
-    "isPast": false,
+    "isSoldOut": true,
+    "isPast": true,
     "theme": {
       "fill": "#4de573",
       "fillHover": "#31d160",
