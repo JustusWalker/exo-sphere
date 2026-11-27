@@ -1,34 +1,34 @@
 {
-  "generatedAt": "2026-09-26T06:54:03.786Z",
+  "generatedAt": "2026-11-27T11:37:32.611Z",
   "source": "eventbrite",
   "organizationId": "2988846143592",
   "spotlight": {
-    "id": "2001418840629",
-    "name": "Bridgefest Benefit",
+    "id": "2005521053458",
+    "name": "EXO 010",
     "subtitle": "",
-    "startUtc": "2026-09-26T00:30:00Z",
-    "startLocal": "2026-09-25T20:30:00",
-    "url": "https://www.eventbrite.com/e/bridgefest-benefit-tickets-2001418840629",
-    "venue": "HuBar",
-    "poster": "posters/2001418840629.jpg",
-    "isSoldOut": true,
-    "isPast": true,
+    "startUtc": "2026-12-13T03:00:00Z",
+    "startLocal": "2026-12-12T22:00:00",
+    "url": "https://www.eventbrite.com/e/exo-010-tickets-2005521053458",
+    "venue": "Krusch Ottawa",
+    "poster": "posters/2005521053458.jpg",
+    "isSoldOut": false,
+    "isPast": false,
     "theme": {
-      "fill": "#4de573",
-      "fillHover": "#31d160",
+      "fill": "#afd859",
+      "fillHover": "#9cc444",
       "label": "#0a0a0a",
-      "accent": "#dc2d21",
-      "ring": "#de2f23",
+      "accent": "#0a5be4",
+      "ring": "#1f6cf6",
       "needsRing": false,
       "measured": {
-        "labelLc": 75.48,
-        "objectRatio": 12.77,
-        "ringRatio": 4.54,
-        "hue": 148.2,
-        "lightnessShift": 0.092,
+        "labelLc": 75.23,
+        "objectRatio": 12.79,
+        "ringRatio": 4.53,
+        "hue": 124.9,
+        "lightnessShift": 0.156,
         "sourceAccents": [
-          "#1ec656",
-          "#dc2d21"
+          "#0a5be4",
+          "#7fa51a"
         ],
         "extractionFellBack": false
       }
@@ -36,6 +36,18 @@
   },
   "upcoming": [],
   "archive": [
+    {
+      "id": "2001418840629",
+      "name": "Bridgefest Benefit",
+      "subtitle": "",
+      "startUtc": "2026-09-26T00:30:00Z",
+      "startLocal": "2026-09-25T20:30:00",
+      "url": "https://www.eventbrite.com/e/bridgefest-benefit-tickets-2001418840629",
+      "venue": "HuBar",
+      "poster": "posters/2001418840629.jpg",
+      "isSoldOut": true,
+      "isPast": true
+    },
     {
       "id": "1996775916518",
       "name": "Exo 009:",
